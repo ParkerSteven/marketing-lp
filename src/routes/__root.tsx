@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import StickySocialStrip from "@/components/SocialStripSticky";
+import ChatWidgetManager from "@/components/site/ChatWidgetManager";
 
 function NotFoundComponent() {
   return (
@@ -120,6 +121,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <StickySocialStrip />
+        <ChatWidgetManager />
         <Scripts />
       </body>
     </html>
