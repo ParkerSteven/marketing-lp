@@ -268,7 +268,7 @@ const authorReviews = [
     title: "The Journey Within",
     date: "Mar 2026",
     rating: 5,
-    body: "Collingwood Press made my dream real. They guided me through editing, cover design, and launch. My book is selling on Amazon and I could not be more proud.",
+    body: "The Collingwood Press made my dream real. They guided me through editing, cover design, and launch. My book is selling on Amazon and I could not be more proud.",
   },
   {
     name: "Michael Brooks",
@@ -664,7 +664,7 @@ function MarketingPage() {
         <div
           className={`${wrap} flex min-h-[76px] sm:min-h-[88px] items-center justify-between gap-4 py-2`}
         >
-          <Link to="/" aria-label="Collingwood Press home" className="min-w-0 shrink">
+          <Link to="/" aria-label="The Collingwood Press home" className="min-w-0 shrink">
             <img
               src={logoAsset}
               alt="The Collingwood Press"
@@ -1010,7 +1010,7 @@ function MarketingPage() {
                 Why Authors <span className="mk-orange">Trust Us</span> With Their Life's Work.
               </h2>
               <p className="mt-4 text-[17px] text-ink-soft">
-                Hear from authors who have worked with Collingwood Press across publishing, editing,
+                Hear from authors who have worked with The Collingwood Press across publishing, editing,
                 and distribution.
               </p>
             </div>
@@ -1171,7 +1171,7 @@ function Footer() {
           <div className="inline-flex items-center rounded-md bg-paper px-3.5 py-2">
             <img
               src={logoAsset}
-              alt="Collingwood Press"
+              alt="The Collingwood Press"
               className="h-9 sm:h-11 w-auto object-contain"
             />
           </div>
@@ -1329,7 +1329,7 @@ function Footer() {
       <div className="relative border-t border-[#F1E9D6]/15">
         <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-5 flex flex-wrap items-center justify-between gap-4 text-[14px] text-[#F1E9D6]/60">
           <p>
-            © 2026 Collingwood Press (Subsidiary of Hambone Publishers LLC). All rights reserved.
+            © 2026 The Collingwood Press (Subsidiary of Hambone Publishers LLC). All rights reserved.
           </p>
           <div className="flex gap-6">
             <a
