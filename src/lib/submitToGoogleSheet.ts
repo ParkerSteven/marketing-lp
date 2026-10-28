@@ -93,7 +93,7 @@ This is an auto-generated lead notification from the website.`;
 
 export async function submitToNewGoogleSheet(data: NewSheetFormData) {
   try {
-    const response = await fetch("http://localhost:3000/api/new-google-sheet/", {
+    const response = await fetch("https://www.thecollingwoodpress.com/api/new-google-sheet/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
