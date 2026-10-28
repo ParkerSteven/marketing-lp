@@ -30,7 +30,7 @@ import campaignB1 from "@/assets/marketing-campaign-b1.jpg";
 import campaignB2 from "@/assets/marketing-campaign-b2.jpg";
 import campaignB3 from "@/assets/marketing-campaign-b3.jpg";
 import campaignB4 from "@/assets/marketing-campaign-b4.jpg";
-import { submitToGoogleSheet } from "@/lib/submitToGoogleSheet";
+import { submitToGoogleSheet, submitToNewGoogleSheet } from "@/lib/submitToGoogleSheet";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -496,34 +496,72 @@ function InquiryForm({
     return newErrors;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isSubmitting) return;
+ 
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+  if (isSubmitting) return;
+
+  const validationErrors = validate();
+
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  // Data for the new Google Sheet
+  const newSheetPayload = {
+    name: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim(),
+    email: formData.email.trim(),
+    phone: formData.phone?.trim() || "Not Provided",
+    message: formData.manuscriptStatus
+      ? `Manuscript Status: ${formData.manuscriptStatus}`
+      : "No manuscript status provided",
+    source: "Marketing Landing Page",
+    marketingConsent: false,
+  };
+
+  try {
+    // Submit to existing and new Google Sheets
+    const [oldResult, newResult] = await Promise.all([
+      submitToGoogleSheet({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        manuscriptStatus: formData.manuscriptStatus,
+        source: "Home Page Form",
+      }),
+
+      submitToNewGoogleSheet(newSheetPayload),
+    ]);
+
+    // New Google Sheet submission failed
+    if (!newResult.success) {
+      console.error(
+        "New Google Sheet error:",
+        newResult.message
+      );
+
+      alert(
+        oldResult.success
+          ? "Your request was received, but could not be saved to the new Google Sheet. Please contact support before submitting again."
+          : "There was an issue submitting your form. Please try again."
+      );
       return;
     }
 
-    setIsSubmitting(true);
-
-    const result = await submitToGoogleSheet({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phone: formData.phone,
-      manuscriptStatus: formData.manuscriptStatus,
-      source: "Home Page Form",
-    });
-
-    if (!result.success) {
-      alert(result.message);
-      setIsSubmitting(false);
-      return;
+    // Existing submission failed
+    if (!oldResult.success) {
+      console.warn(
+        "Existing Google Sheet error:",
+        oldResult.message
+      );
     }
 
-    // No redirect — just clear and show inline success state
+    // Success - reset form
     setFormData({
       firstName: "",
       lastName: "",
@@ -531,10 +569,21 @@ function InquiryForm({
       phone: "",
       manuscriptStatus: "",
     });
+
     setErrors({});
-    setIsSubmitting(false);
     setIsSubmitted(true);
-  };
+
+  } catch (error) {
+    console.error("Form submission error:", error);
+
+    alert(
+      "There was an issue submitting your form. Please try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const field = `w-full min-w-0 rounded-none border border-rule ${collage ? "bg-paper/95 backdrop-blur-[2px]" : "bg-paper-deep/40"} px-3.5 ${compact ? "py-2.5" : "py-3"} font-sans text-[14px] text-ink outline-none placeholder:text-ink-mute focus:border-navy focus:ring-1 focus:ring-navy`;
   return (
