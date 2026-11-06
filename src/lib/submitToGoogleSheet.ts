@@ -1,6 +1,6 @@
 const WEBHOOK_URL = "https://hook.us1.make.com/lqy6w5qba6mwnnbak7likgzti4edzt4h";
 
-interface FormData {
+interface LeadFormData {
   firstName?: string;
   lastName?: string;
   name?: string;
@@ -13,18 +13,16 @@ interface FormData {
   source?: string;
 }
 
-
-interface NewSheetFormData {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-  source: string;
-  marketingConsent: boolean;
+export interface NewSheetFormData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  message?: string;
+  source?: string;
+  marketingConsent?: boolean;
 }
 
-
-export async function submitToGoogleSheet(data: FormData) {
+export async function submitToGoogleSheet(data: LeadFormData) {
   try {
     const name = data.name || `${data.firstName || ""} ${data.lastName || ""}`.trim();
     const email = data.email || "";
@@ -93,12 +91,21 @@ This is an auto-generated lead notification from the website.`;
 
 export async function submitToNewGoogleSheet(data: NewSheetFormData) {
   try {
+    const normalizedData = {
+      name: data.name ?? "",
+      email: data.email ?? "",
+      phone: data.phone ?? "",
+      message: data.message ?? "",
+      source: data.source ?? "Marketing Landing Page",
+      marketingConsent: data.marketingConsent ?? false,
+    };
+
     const response = await fetch("https://www.thecollingwoodpress.com/api/new-google-sheet/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(normalizedData),
     });
 
     const result = await response.json();

@@ -543,8 +543,7 @@ function InquiryForm({
           newResult.message
         );
 
-        window.location.href =
-          "https://www.thecollingwoodpress.com/thankyou/";
+        window.location.href = "https://www.thecollingwoodpress.com/thankyou/";
 
         alert(
           oldResult.success
