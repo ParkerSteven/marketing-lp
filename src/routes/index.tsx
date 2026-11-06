@@ -543,7 +543,6 @@ function InquiryForm({
           newResult.message
         );
 
-        window.location.href = "https://www.thecollingwoodpress.com/thankyou/";
 
         alert(
           oldResult.success
@@ -561,6 +560,8 @@ function InquiryForm({
         );
       }
 
+        window.location.href = "https://www.thecollingwoodpress.com/thankyou/";
+
       // Success - reset form
       setFormData({
         firstName: "",
@@ -571,7 +572,7 @@ function InquiryForm({
       });
 
       setErrors({});
-      setIsSubmitted(true);
+      // setIsSubmitted(true);
 
     } catch (error) {
       console.error("Form submission error:", error);
