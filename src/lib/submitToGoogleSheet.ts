@@ -20,6 +20,7 @@ export interface NewSheetFormData {
   message?: string;
   source?: string;
   marketingConsent?: boolean;
+  websiteUrl?: string;
 }
 
 export async function submitToGoogleSheet(data: LeadFormData) {
@@ -98,6 +99,7 @@ export async function submitToNewGoogleSheet(data: NewSheetFormData) {
       message: data.message ?? "",
       source: data.source ?? "Marketing Landing Page",
       marketingConsent: data.marketingConsent ?? false,
+      websiteUrl: data.websiteUrl ?? "",
     };
 
     const response = await fetch("https://www.thecollingwoodpress.com/api/new-google-sheet/", {
