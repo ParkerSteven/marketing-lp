@@ -519,6 +519,7 @@ function InquiryForm({
         : "No manuscript status provided",
       source: "Marketing Landing Page",
       marketingConsent: false,
+      websiteUrl: window.location.href,
     };
 
     try {
@@ -560,7 +561,7 @@ function InquiryForm({
         );
       }
 
-        window.location.href = "https://www.thecollingwoodpress.com/thankyou/";
+      window.location.href = "https://www.thecollingwoodpress.com/thankyou/";
 
       // Success - reset form
       setFormData({
@@ -572,7 +573,7 @@ function InquiryForm({
       });
 
       setErrors({});
-      // setIsSubmitted(true);
+      setIsSubmitted(true);
 
     } catch (error) {
       console.error("Form submission error:", error);
