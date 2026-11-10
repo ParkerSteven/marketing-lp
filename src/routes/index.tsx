@@ -1134,7 +1134,7 @@ function MarketingPage() {
             </div>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Action href="#review-form">Get a Free Review</Action>
-              <Action href="mailto:info@thecollingwoodpress.com" gold>
+              <Action href="mailto:contact@thecollingwoodpress.com" gold>
                 <Mail size={15} /> Contact Our Team
               </Action>
             </div>
@@ -1325,10 +1325,10 @@ function Footer() {
           <ul className="space-y-3 text-[15px] text-[#F1E9D6]/80">
             <li>
               <a
-                href="mailto:info@thecollingwoodpress.com"
+                href="mailto:contact@thecollingwoodpress.com"
                 className="transition-colors hover:text-gold"
               >
-                info@thecollingwoodpress.com
+                contact@thecollingwoodpress.com
               </a>
             </li>
             <li>
